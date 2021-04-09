@@ -1,0 +1,1 @@
+A simple example of using Leaflet to display a big image of a map and put markers on it

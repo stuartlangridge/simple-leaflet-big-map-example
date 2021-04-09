@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Stuart's example leaflet map</title>
+<style type="text/css">
+    html, body { height: 100%; margin: 0; padding: 0; }
+    #map { width: 100vw; height: 100vh; }
+</style>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+<link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.css">
+<script src="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.js"></script>
+</head>
+<body>
+<div id="map"></div>
+<script type="text/javascript">
+var SIZE_OF_MAP = {width: 1080, height: 748}; // the dimensions of the map image
+
+var map = L.map('map', {
+    crs: L.CRS.Simple,
+    center: [SIZE_OF_MAP.height / 2, SIZE_OF_MAP.width / 2],
+    minZoom: -5,
+    maxZoom: 5,
+    zoom: 0
+});
+var bounds = [[0,0], [SIZE_OF_MAP.height, SIZE_OF_MAP.width]]; 
+var image = L.imageOverlay('mymap.jpg', bounds).addTo(map); // this is the name of the map image
+map.setMaxBounds(bounds);
+map.on('drag', function() {
+    map.panInsideBounds(bounds, { animate: false });
+});
+
+MARKERS = [
+    {name: "The market square in Phandalin", x: 400, y: 410}
+]
+
+const showMarker = m => {
+    var marker = L.marker([m.y, m.x]).addTo(map);
+    marker.bindTooltip(m.name, {});
+}
+MARKERS.forEach(showMarker);
+
+</script>
+</body>
+</html>
